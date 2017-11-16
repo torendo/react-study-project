@@ -1,0 +1,26 @@
+{
+  "name": "react-study-project",
+  "version": "1.0.0",
+  "description": "just another react study project",
+  "main": "index.js",
+  "scripts": {
+    "start": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/torendo/react-study-project.git"
+  },
+  "author": "Stanislav Proshkin <Stanislav_Proshkin@epam.com> (https://github.com/torendo)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/torendo/react-study-project/issues"
+  },
+  "homepage": "https://github.com/torendo/react-study-project#readme",
+  "dependencies": {
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1"
+  },
+  "devDependencies": {
+    "babel-preset-react": "^6.24.1"
+  }
+}
