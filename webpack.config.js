@@ -36,7 +36,11 @@ if (isProd) {
 }
 
 module.exports = {
-  entry: './client/index.js',
+  entry: [
+    'webpack-hot-middleware/client?reload=true',
+    'react-hot-loader/patch',
+    __dirname + '/client/index.js'
+  ],
   output: {
     path: __dirname + '/public',
     filename: '[name].js'

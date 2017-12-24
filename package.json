@@ -4,7 +4,9 @@
   "description": "just another react study project",
   "main": "index.js",
   "scripts": {
-    "start": ""
+    "start": "node --experimental-modules ./server/server.mjs",
+    "build-dev": "set NODE_ENV=development&& node --experimental-modules ./server/server.mjs",
+    "build-prod": "set NODE_ENV=production&& node_modules/.bin/webpack"
   },
   "repository": {
     "type": "git",

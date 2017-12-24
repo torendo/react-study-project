@@ -10,6 +10,7 @@
           "syntax": "postcss-less"
         }
       }
-    }]
+    }],
+    "react-hot-loader/babel"
   ]
 }
