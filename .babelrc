@@ -1,0 +1,15 @@
+{
+  "presets": ["env", "react"],
+  "plugins": [
+    "transform-object-rest-spread",
+    ["react-css-modules", {
+      "webpackHotModuleReloading": true,
+      "generateScopedName": "[local]__[hash:base64:5]",
+      "filetypes": {
+        ".less": {
+          "syntax": "postcss-less"
+        }
+      }
+    }]
+  ]
+}
