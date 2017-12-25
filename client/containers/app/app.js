@@ -3,7 +3,7 @@ import Grid from '../../components/grid/index';
 import Filter from '../../components/filter/index';
 import {} from './app.less';
 
-//TODO: remove work with mocks
+//TODO: remove mocks, add database
 import playlist from '../../../mock/playlist';
 import filters from '../../../mock/filters';
 import author from '../../../mock/authors';
@@ -17,6 +17,7 @@ export default class App extends React.Component {
     this.onPaging = this.onPaging.bind(this);
     this.onSorting = this.onSorting.bind(this);
     this.onFilterSelect = this.onFilterSelect.bind(this);
+    //TODO: move state to redux
     this.state = {
       gridData: [],
       filtersData: [],
@@ -65,7 +66,7 @@ export default class App extends React.Component {
     const start = (page - 1) * count;
     const end = page * count;
     const filters = Object.entries(filter);
-    //TODO: remove work with mocks
+    //TODO: remove mocks, add database
     //filter
     let data = [...playlist];
     if (filters.length > 0) {
@@ -101,7 +102,7 @@ export default class App extends React.Component {
   getFilters() {
     this.setState({
       filtersData: filters.map((filter) => {
-        //TODO: remove work with mocks
+        //TODO: remove mocks, add database
         return {...filter, options: filtersData[filter.code]};
       })
     });

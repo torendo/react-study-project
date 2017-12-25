@@ -67,24 +67,12 @@ export default class Grid extends React.Component {
       </table>
     );
   }
+  //TODO: move quantity to nested component
   quantityChangeHandler(e) {
     if (!e.target.name) return;
     const quantity = Number(e.target.name);
     this.setState({quantity, page: 1});
     this.props.onPaging(quantity, 1);
-  }
-  pagingChangeHandler(e) {
-    if (!e.target.name || e.target.disabled) return;
-    let page;
-    if (e.target.name === 'prev') {
-      page = this.state.page - 1;
-    } else if (e.target.name === 'next') {
-      page = this.state.page + 1;
-    } else {
-      page = Number(e.target.name);
-    }
-    this.setState({page});
-    this.props.onPaging(this.state.quantity, page);
   }
   sortChangeHandler(column) {
     let direction;
@@ -99,6 +87,20 @@ export default class Grid extends React.Component {
   }
   getSortClass(column) {
     return this.state.sort[column] ? this.state.sort[column] + ' sort' : 'sort';
+  }
+  //TODO: move pager to nested component
+  pagingChangeHandler(e) {
+    if (!e.target.name || e.target.disabled) return;
+    let page;
+    if (e.target.name === 'prev') {
+      page = this.state.page - 1;
+    } else if (e.target.name === 'next') {
+      page = this.state.page + 1;
+    } else {
+      page = Number(e.target.name);
+    }
+    this.setState({page});
+    this.props.onPaging(this.state.quantity, page);
   }
   getPages() {
     const pagesCount = Math.ceil(this.props.total / this.state.quantity);
