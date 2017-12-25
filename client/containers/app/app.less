@@ -1,0 +1,29 @@
+@import "../../variables";
+body {
+  font-family: 'PT Sans', sans-serif;
+  color: @color-text;
+}
+h2 {
+  font-weight: normal;
+  font-size: 20px;
+}
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.main {
+  display: flex;
+  margin: 0 10%;
+}
+.section-big {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+.sidebar {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 200px;
+  margin-left: 20px;
+}

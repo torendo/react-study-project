@@ -1,3 +1,28 @@
+@import "../../variables";
+
 .filters {
-  background: #9da0a4;
+  background: @color-background;
+  padding: @size-padding;
+}
+.filter {
+  display: block;
+  margin-top: @size-padding;
+  &:first-child {
+    margin-top: 0;
+  }
+}
+.name {
+  font-size: 12px;
+  font-weight: bold;
+}
+.dropdown {
+  width: 100%;
+  height: @size-height-input;
+  border: @border-regular;
+  cursor: pointer;
+  &:hover, &:focus {
+    outline: none;
+    box-shadow: 0 0 5px @color-outline;
+    background: @color-hover;
+  }
 }

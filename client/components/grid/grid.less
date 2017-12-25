@@ -1,56 +1,137 @@
 @import "../../variables";
+
 .table {
-  border-collapse: collapse;
+  width: 100%;
   text-align: left;
+  border-collapse: collapse;
 }
 .th {
+  position: relative;
   background: @color-background;
 }
 .td,
 .th {
-  padding: 5px;
+  padding: @size-padding;
   border: @border-regular;
 }
+
+@size-sort: 6px;
+.sortAsc, .sortDesc{
+  position: absolute;
+  right: @size-padding;
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: @size-sort solid transparent;
+  &:focus {
+    outline: none;
+  }
+}
+.sortAsc {
+  top: @size-padding - @size-sort + 1;
+  border-bottom-color: @color-border;
+  &:hover {
+    border-bottom-color: @color-text;
+  }
+  &:focus {
+    border-bottom-color: @color-outline-dark;
+  }
+}
+.sortDesc {
+  bottom: @size-padding - @size-sort + 1;
+  border-top-color: @color-border;
+  &:hover {
+    border-top-color: @color-text;
+  }
+  &:focus {
+    border-top-color: @color-outline-dark;
+  }
+}
+
 .footer {
   position: relative;
-  padding: 5px 0;
+  margin: 10px 0;
 }
 
 .paging {
-  margin: 0 200px;
+  margin: 0 150px;
+  text-align: center;
 }
-.prev {
-  border: @border-regular;
-  background: none;
+.prev, .next, .page {
+  width: @size-height-input;
+  height: @size-height-input;
+  margin: 0 2px;
+  padding: 0;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 12px;
+  &:hover, &:focus {
+    background: @color-hover;
+  }
+  &:active{
+    background: @color-active;
+  }
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px @color-outline;
+  }
 }
-.next {
-
+.prev, .next {
+  &:before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: @border-regular;
+    transform: rotate(45deg);
+  }
+  &:disabled {
+    visibility: hidden;
+  }
 }
-.current {
-
+.prev:before {
+  border-right: none;
+  border-top: none;
+  margin-left: 3px;
+}
+.next:before {
+  border-left: none;
+  border-bottom: none;
+  margin-right: 3px;
 }
 .page {
-
+  &.current {
+    border: @border-regular;
+  }
+  &.current {
+    background: @color-active;
+  }
 }
 
 .quantity {
   position: absolute;
   top: 0;
   right: 0;
-  width: 200px;
-  border: @border-regular;
-  border-right: none;
 }
 .btn {
-  background: none;
-  border-right: @border-regular;
+  width: @size-height-input;
+  height: @size-height-input;
+  border: @border-regular;
+  border-right: none;
+  font-size: 12px;
+  padding: 3px;
+  &:last-child {
+    border-right: @border-regular;
+  }
+  &:hover, &:focus {
+    background: @color-hover;
+  }
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px @color-outline;
+  }
+  &.current, &:active {
+    background: @color-active;
+  }
 }
-.btn:hover, .btn:focus {
-  background: @color-hover;
-}
-.btn:active {
-  background: @color-active;
-}
-/*.current {*/
-
-/*}*/

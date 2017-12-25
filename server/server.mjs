@@ -1,4 +1,4 @@
-import expose from '../expose';
+import expose from './expose';
 import express from 'express';
 import path from 'path';
 const {__dirname, require} = expose;
@@ -27,7 +27,6 @@ if (isDev) {
 app.all('*', function (req, res) {
   res.sendFile(path.resolve(PUBLIC_PATH, 'index.html'));
 });
-
 
 app.listen(PORT, function () {
   console.log('Listening on port ' + PORT + '...');

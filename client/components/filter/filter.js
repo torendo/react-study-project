@@ -8,9 +8,9 @@ export default class Filter extends React.Component {
       <div styleName="filters">
         {this.props.filters.map((filter) => {
           return (
-            <label key={filter.id}>
-              <div>{filter.name}</div>
-              <select name="{filter.code}">
+            <label styleName="filter" key={filter.id}>
+              <div styleName="name">{filter.name}</div>
+              <select styleName="dropdown" name="{filter.code}">
                 {filter.options.map((option) => {
                   return (
                     <option key={option.id} value="{option.id}">{option.name}</option>
