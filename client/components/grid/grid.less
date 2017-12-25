@@ -6,45 +6,78 @@
   border-collapse: collapse;
 }
 .th {
-  position: relative;
-  background: @color-background;
+  padding: 0;
+  vertical-align: center;
+  border: @border-regular;
 }
-.td,
-.th {
+.td {
   padding: @size-padding;
   border: @border-regular;
 }
 
-@size-sort: 6px;
-.sortAsc, .sortDesc{
-  position: absolute;
-  right: @size-padding;
-  width: 0;
-  height: 0;
-  padding: 0;
-  border: @size-sort solid transparent;
+@size-sort: 4px;
+.sort {
+  display: flex;
+  padding: 8px;
+  background: @color-background;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover, &:focus {
+    background: @color-hover;
+  }
+  &:active{
+    background: @color-active;
+  }
   &:focus {
     outline: none;
+    box-shadow: 0 0 5px @color-outline;
+  }
+  &.ASC {
+    .sortIcons:before {
+      display: none;
+    }
+    .sortIcons:after {
+      border-bottom-color: @color-text;
+      border-left-color: @color-text;
+      margin: @size-sort/2 0 auto 0;
+    }
+  }
+  &.DESC {
+    .sortIcons:after {
+      display: none;
+    }
+    .sortIcons:before {
+      border-bottom-color: @color-text;
+      border-left-color: @color-text;
+      margin: auto 0 @size-sort/2 0;
+    }
   }
 }
-.sortAsc {
-  top: @size-padding - @size-sort + 1;
-  border-bottom-color: @color-border;
-  &:hover {
-    border-bottom-color: @color-text;
-  }
-  &:focus {
-    border-bottom-color: @color-outline-dark;
-  }
+.sortText {
+  flex-grow: 1;
 }
-.sortDesc {
-  bottom: @size-padding - @size-sort + 1;
-  border-top-color: @color-border;
-  &:hover {
-    border-top-color: @color-text;
+.sortIcons {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 12px;
+  margin-left: 10px;
+  &:before, &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    padding: 0;
+    border: @size-sort solid transparent;
+    border-bottom-color: @color-border;
+    border-left-color: @color-border;
   }
-  &:focus {
-    border-top-color: @color-outline-dark;
+  &:before {
+    margin: auto 0 -@size-sort/2 0;
+    transform: rotate(135deg);
+  }
+  &:after {
+    margin: -@size-sort/2 0 auto 0;
+    transform: rotate(-45deg);
   }
 }
 

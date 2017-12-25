@@ -7,9 +7,11 @@ export default class Grid extends React.Component {
     super();
     this.quantityChangeHandler = this.quantityChangeHandler.bind(this);
     this.pagingChangeHandler = this.pagingChangeHandler.bind(this);
+    this.getSortClass = this.getSortClass.bind(this);
     this.state = {
       page: 1,
-      quantity: 10
+      quantity: 10,
+      sort: {}
     };
     this.quantities = [10, 25, 50, 100];
   }
@@ -24,9 +26,10 @@ export default class Grid extends React.Component {
             {this.props.columns.map((column) => {
               return (
                 <th styleName="th" key={column.id}>
-                  {column.name}
-                  <button styleName="sortAsc"/>
-                  <button styleName="sortDesc"/>
+                  <div tabIndex="1" styleName={this.getSortClass(column.code)} onClick={this.sortChangeHandler.bind(this, column.code)}>
+                    <div styleName="sortText">{column.name}</div>
+                    <div styleName="sortIcons"/>
+                  </div>
                 </th>
               );
             })}
@@ -83,6 +86,20 @@ export default class Grid extends React.Component {
     this.setState({page});
     this.props.onPaging(this.state.quantity, page);
   }
+  sortChangeHandler(column) {
+    let direction;
+    if (this.state.sort[column]) {
+      direction = this.state.sort[column] === 'ASC' ? 'DESC' : 'ASC';
+    } else {
+      direction = 'ASC';
+    }
+    this.setState({sort: {[column]: direction}}, () => {
+      this.props.onSorting(this.state.sort);
+    });
+  }
+  getSortClass(column) {
+    return this.state.sort[column] ? this.state.sort[column] + ' sort' : 'sort';
+  }
   getPages() {
     const pagesCount = Math.ceil(this.props.total / this.state.quantity);
     const pages = [];
@@ -106,5 +123,6 @@ Grid.propTypes = {
   data: PropTypes.array,
   total: PropTypes.number,
   page: PropTypes.number,
-  onPaging: PropTypes.func
+  onPaging: PropTypes.func,
+  onSorting: PropTypes.func,
 };

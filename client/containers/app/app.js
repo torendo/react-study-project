@@ -15,11 +15,13 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.onPaging = this.onPaging.bind(this);
+    this.onSorting = this.onSorting.bind(this);
     this.onFilterSelect = this.onFilterSelect.bind(this);
     this.state = {
       gridData: [],
       filtersData: [],
       filter: {},
+      sort: {},
       columns: [
         {id: 1, code: 'author', name: 'Author'},
         {id: 2, code: 'title', name: 'Song'},
@@ -46,6 +48,7 @@ export default class App extends React.Component {
             total={this.state.total}
             page={this.state.page}
             onPaging={this.onPaging}
+            onSorting={this.onSorting}
           />
         </section>
         <aside styleName="sidebar">
@@ -58,11 +61,12 @@ export default class App extends React.Component {
       </main>
     );
   }
-  getPlaylist(count, page, filter = {}) {
+  getPlaylist(count, page, filter = {}, sort = {}) {
     const start = (page - 1) * count;
     const end = page * count;
     const filters = Object.entries(filter);
     //TODO: remove work with mocks
+    //filter
     let data = [...playlist];
     if (filters.length > 0) {
       filters.forEach(([key, value]) => {
@@ -70,6 +74,23 @@ export default class App extends React.Component {
         if (fullItem) {
           data = data.filter((item) =>  item[key] === fullItem.name);
         }
+      });
+    }
+    //sort
+    const sortings = Object.entries(sort);
+    if (sortings.length > 0) {
+      const sortBy = sortings[0][0];
+      const direction = sortings[0][1];
+      data = data.sort((itemA, itemB) => {
+        const a = itemA[sortBy].toLowerCase();
+        const b = itemB[sortBy].toLowerCase();
+        if (a < b) {
+          return direction === 'ASC' ? -1 : 1;
+        }
+        if (a > b) {
+          return direction === 'ASC' ? 1 : -1;
+        }
+        return 0;
       });
     }
     this.setState({
@@ -87,12 +108,17 @@ export default class App extends React.Component {
   }
   onPaging(count, page) {
     this.setState({count, page}, () => {
-      this.getPlaylist(count, page, this.state.filter);
+      this.getPlaylist(count, page, this.state.filter, this.state.sort);
+    });
+  }
+  onSorting(sort) {
+    this.setState({sort, page: 1}, () => {
+      this.getPlaylist(this.state.count, this.state.page, this.state.filter, sort);
     });
   }
   onFilterSelect(filter) {
     this.setState({filter, page: 1}, () => {
-      this.getPlaylist(this.state.count, this.state.page, filter);
+      this.getPlaylist(this.state.count, this.state.page, filter, this.state.sort);
     });
   }
 }
