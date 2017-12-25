@@ -5,13 +5,16 @@ import {} from './grid.less';
 export default class Grid extends React.Component {
   constructor() {
     super();
-    this.quantityChangedHandler = this.quantityChangedHandler.bind(this);
-    this.pagingChangedHandler = this.pagingChangedHandler.bind(this);
+    this.quantityChangeHandler = this.quantityChangeHandler.bind(this);
+    this.pagingChangeHandler = this.pagingChangeHandler.bind(this);
     this.state = {
       page: 1,
       quantity: 10
     };
     this.quantities = [10, 25, 50, 100];
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({page: nextProps.page});
   }
   render() {
     return (
@@ -44,10 +47,10 @@ export default class Grid extends React.Component {
           <tr>
             <td colSpan={this.props.columns.length}>
               <div styleName="footer">
-                <div styleName="paging" onClick={this.pagingChangedHandler}>
+                <div styleName="paging" onClick={this.pagingChangeHandler}>
                   {this.getPages().map(page => page)}
                 </div>
-                <div styleName="quantity" onClick={this.quantityChangedHandler}>
+                <div styleName="quantity" onClick={this.quantityChangeHandler}>
                   {this.quantities.map((qty) => {
                     return (
                       <button key={qty} name={qty} styleName={(this.state.quantity === qty ? 'btn current' : 'btn')}>{qty}</button>
@@ -61,13 +64,13 @@ export default class Grid extends React.Component {
       </table>
     );
   }
-  quantityChangedHandler(e) {
+  quantityChangeHandler(e) {
     if (!e.target.name) return;
     const quantity = Number(e.target.name);
     this.setState({quantity, page: 1});
     this.props.onPaging(quantity, 1);
   }
-  pagingChangedHandler(e) {
+  pagingChangeHandler(e) {
     if (!e.target.name || e.target.disabled) return;
     let page;
     if (e.target.name === 'prev') {
@@ -92,7 +95,7 @@ export default class Grid extends React.Component {
       );
     }
     pages.push(
-      <button key="next" name="next" styleName="next" disabled={this.state.page === pagesCount}/>
+      <button key="next" name="next" styleName="next" disabled={this.state.page === pagesCount || pagesCount === 0}/>
     );
     return pages;
   }
@@ -102,5 +105,6 @@ Grid.propTypes = {
   columns: PropTypes.array,
   data: PropTypes.array,
   total: PropTypes.number,
+  page: PropTypes.number,
   onPaging: PropTypes.func
 };

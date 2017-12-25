@@ -11,7 +11,7 @@ const isDev = process.env.NODE_ENV === 'development';
 
 if (isDev) {
   const webpack = require('webpack');
-  const webpackConfig = require(path.resolve(__dirname, 'webpack.config.js'));
+  const webpackConfig = require(path.resolve(__dirname, '../webpack.config.js'));
   const compiler = webpack(webpackConfig);
   app.use(require('webpack-dev-middleware')(compiler, {
     hot: true,
