@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {} from './filter.less';
 
-export default class Filter extends React.Component {
+export default class Filter extends React.PureComponent {
   constructor() {
     super();
     this.changeHandler = this.changeHandler.bind(this);

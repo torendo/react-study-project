@@ -51,7 +51,7 @@ export default class Grid extends React.Component {
             <td colSpan={this.props.columns.length}>
               <div styleName="footer">
                 <div styleName="paging" onClick={this.pagingChangeHandler}>
-                  {this.getPages().map(page => page)}
+                  {this.getPages()}
                 </div>
                 <div styleName="quantity" onClick={this.quantityChangeHandler}>
                   {this.quantities.map((qty) => {
